@@ -27,12 +27,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
 
 
-        const commentsForm = document.querySelector('#comments-form')
+    const commentsForm = document.querySelector('#comments-form')
 
-        commentsForm.addEventListener('submit', ()=>{
-          event.preventDefault()
-          getUserComment(commentsForm)
-        })
+    commentsForm.addEventListener('submit', ()=>{
+      event.preventDefault()
+      getUserComment(commentsForm)
+    })
 
     function getUserComment(commentsForm){
       const newFormData = new FormData(commentsForm)
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 
     function sendUserComment(){
-        
+      //POST request will go here
     }
 
 })
