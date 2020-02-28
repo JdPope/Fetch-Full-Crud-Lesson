@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       console.table(comments)
       comments.map(comment => {
           renderId(comment)
-          renderComment(comment.content)
+          renderComment(comment.content, comment.id)
       })
     }
 
@@ -19,11 +19,26 @@ document.addEventListener('DOMContentLoaded', ()=>{
       console.log('renderId', comment)
     }
 
-    function renderComment(bananas){
+    function renderComment(bananas, id){
       const commentsContainer = document.querySelector('#commentsUl')
       const commentContent = document.createElement('li')
       commentContent.textContent = bananas
       commentsContainer.appendChild(commentContent)
+      createDeleteButton(commentContent, id)
+    }
+
+
+    function createDeleteButton(commentContent, id){
+      const deleteButton = document.createElement('button')
+      deleteButton.innerText = 'delete'
+      commentContent.appendChild(deleteButton)
+      deleteButton.addEventListener('click', event => deleteComment(id))
+    }
+
+    function deleteComment(id){
+      console.log(id)
+      event.target.parentNode.remove()
+      fetch(`http://localhost:3000/comments/${id}`, {method:'DELETE'})
     }
 
 
@@ -42,8 +57,15 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
 
 
-    function sendUserComment(){
-      //POST request will go here
+    function sendUserComment(formComment){
+      fetch('http://localhost:3000/comments', {
+        method:'POST',
+        headers:{
+          'Accept':'application/json',
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify({content:formComment})
+      })
     }
 
 })
